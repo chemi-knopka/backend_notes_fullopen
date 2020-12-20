@@ -30,7 +30,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/', (req, res) => {
-res.send("<h1>I Miss you Patarav <3 </h1>")
+res.send("<h1>I Wish My Knopka Were Here <3 </h1>")
 });
 
 app.get("/api/notes", (req, res) => {
