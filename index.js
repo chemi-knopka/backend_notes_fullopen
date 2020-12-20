@@ -28,6 +28,7 @@ let notes = [
 app.use(morgan('tiny'))
 app.use(express.json());
 app.use(cors());
+app.use(express.static('build'))
 
 app.get('/', (req, res) => {
 res.send("<h1>I Wish My Knopka Were Here <3 </h1>")
