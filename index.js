@@ -37,7 +37,7 @@ app.post('/api/notes', (req, res, next) => {
   // save note to db 
   note
     .save()
-    .then(savedNote => savedNote.toJson())
+    .then(savedNote => savedNote.toJSON())
     .then(savedAndFormatedNote => {
       console.log("note is saved in db");
       res.json(savedAndFormatedNote);
