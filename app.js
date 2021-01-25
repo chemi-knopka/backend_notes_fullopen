@@ -1,12 +1,13 @@
-const config = require('./utils/config')
-const express = require('express')
-require('express-async-errors')
-const app = express()
-const cors = require('cors')
-const notesRouter = require('./controlers/notes')
-const middleware = require('./utils/middleware')
-const logger = require('./utils/logger')
 const mongoose = require('mongoose')
+const config = require('./utils/config')
+const logger = require('./utils/logger')
+const express = require('express')
+const app = express()
+const middleware = require('./utils/middleware')
+const notesRouter = require('./controlers/notes')
+const usersRouter = require('./controlers/users')
+const cors = require('cors')
+require('express-async-errors')
 
 // -- estamlishing DB connection
 logger.info('connecting to MongoDB')
@@ -26,7 +27,8 @@ app.use(express.static('build'))
 app.use(express.json())
 app.use(middleware.requestLogger)
 
-app.use('/api/notes', notesRouter) // related pathes 
+app.use('/api/notes', notesRouter) // notes related pathes 
+app.use('/api/users', usersRouter) // users related pathes
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
