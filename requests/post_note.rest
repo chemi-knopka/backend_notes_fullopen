@@ -2,6 +2,7 @@ POST http://localhost:3001/api/notes
 Content-Type: application/json
 
 {
-   
-    "imoprtant": false
+   "content": "this is first note created by some user",
+    "imoprtant": false,
+    "userId": "600eb70ae11f42436b2c305d"
 }
