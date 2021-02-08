@@ -171,7 +171,7 @@ describe('when there is one initial username in db', () => {
     expect(usernames).toContain(newUser.username)
   })
 
-  test('creation fails with proper status code and a message if username is already taken', async () => {
+  test.only('creation fails with proper status code and a message if username is already taken', async () => {
     const usersAtStart = await helper.usersInDb()
 
     const newUser = {

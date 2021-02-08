@@ -1,8 +1,11 @@
 POST http://localhost:3001/api/notes
 Content-Type: application/json
+# Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNob3RpdXMiLCJpZCI6IjYwMGZmM2FkMGFkNTg2MjQ5MDlhNTBjYyIsImlhdCI6MTYxMTY1ODIyOX0.yoD3y1utk3Nqfm1U609TIDp2P_ko2YEWpw_R3KIPjxQ
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNob3RpdXMiLCJpZCI6IjYwMGZmM2FkMGFkNTg2MjQ5MDlhNTBjYyIsImlhdCI6MTYxMTY1ODIyOX0.yoD3y1utk3Nqfm1U609TIDp2P_ko2YEWpw
+
 
 {
-   "content": "this is first note created by some user",
+   "content": "shotius added this by token",
     "imoprtant": false,
     "userId": "600eb70ae11f42436b2c305d"
 }

@@ -2,6 +2,8 @@ const notesRouter = require('express').Router()
 const logger = require('../utils/logger')
 const Note = require('../models/note')
 const User = require('../models/user')
+const jwt = require('jsonwebtoken')
+require('express-async-errors')
 
 notesRouter.get('/', async (req, res, next) => {
   const notes = await Note
@@ -10,11 +12,32 @@ notesRouter.get('/', async (req, res, next) => {
   res.json(notes)
 })
   
+const getTokenFrom = request => {
+  const authorization = request.get('authorization')
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    return authorization.substring(7)
+  }
+  return null
+}
+
+
 notesRouter.post('/', async (req, res, next) => {
   const body = req.body
-  
-  const user = await User.findById(body.userId)
 
+  // get user token from header
+  const token = getTokenFrom(req)
+  // decode token it will return object of the username and id fields
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+
+  // if token missing or not provided return 401 error 
+  if (!token || !decodedToken) {
+    return res.status(401).json({ error: 'token missing or invalid' })
+  }
+
+  // once we decoded the token we have id of the username
+  const user = await User.findById(decodedToken.id)
+
+  
   // create new Note from request
   let note = new Note({
     content: body.content,
@@ -31,6 +54,7 @@ notesRouter.post('/', async (req, res, next) => {
 
   res.json(savedNote)
 })
+
 notesRouter.get('/:id', async (req, res) => {
   const note = await Note.findById(req.params.id)
   
@@ -40,7 +64,8 @@ notesRouter.get('/:id', async (req, res) => {
     res.status(404).end()
   }    
 })
-  
+
+
 notesRouter.delete('/:id', async (req, res, next) => {
   const note = await Note.findByIdAndRemove(req.params.id)    
   res.status(204).end()
@@ -60,5 +85,7 @@ notesRouter.put('/:id', (request, response, next) => {
     })
     .catch(err => next(err))
 })
+
+
   
 module.exports = notesRouter
